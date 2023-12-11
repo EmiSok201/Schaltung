@@ -10,3 +10,4 @@ class Main:
         resistor = Resistor(5, 10, 10)
         power_source = PowerSource(20)
         voltage_source = VoltageSource(25)
+

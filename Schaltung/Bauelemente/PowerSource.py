@@ -1,8 +1,8 @@
 class PowerSource:
 
-    def __init__(self, electricity):
-        self.electricity = electricity
+    def __init__(self, ampere):
+        self.ampere = ampere
 
-    def get_electricity(self):
-        electricity = self.electricity
-        return electricity
+    def get_ampere(self):
+        ampere = self.ampere
+        return ampere

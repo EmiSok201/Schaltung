@@ -5,7 +5,7 @@ class CircuitCalculation:
         self.resistor2 = resistor2
 
     def calculate_series_circuit(self):
-        resistor = self.resistor1 * self.resistor2
+        resistor = self.resistor1 + self.resistor2
         return resistor
 
     def calculate_parallel_circuit(self):

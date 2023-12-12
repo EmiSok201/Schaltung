@@ -1,5 +1,6 @@
 class PowerSource:
 
+    # - Initialisierung der Stromquelle
     def __init__(self, ampere):
         self.ampere = ampere
 

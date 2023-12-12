@@ -1,5 +1,6 @@
 class VoltageSource:
 
+    # - Initialisierung der Spannungsquelle
     def __init__(self, voltage):
         self.voltage = voltage
 

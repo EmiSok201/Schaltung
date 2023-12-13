@@ -1,4 +1,5 @@
 from Bauelemente.Resistor import Resistor
+from Schaltung.Rechengesetze import CircuitCalculation
 from Schaltung.Rechengesetze.VoltageDivider import VoltageDivider
 from Bauelemente.PowerSource import PowerSource
 from Bauelemente.VoltageSource import VoltageSource
@@ -10,9 +11,13 @@ class Main:
 
         # Initialisierung der Bauelemente
         resistor = Resistor(5)
-        r1 = resistor.get_resistor()
+
         resistor2 = Resistor(10)
-        r2 = resistor2.get_resistor()
+
+        resistor3 = Resistor(30)
+        reihe12 = resistor.series(resistor2)
+        reihe123 = reihe12.series(resistor3)
+       # reihe123b = resistor.series(resistor2).series(resistor3)
 
         power_source = PowerSource(30)
         i0 = power_source.get_ampere()
@@ -23,9 +28,11 @@ class Main:
         # Reihenschaltung von r1 und r2
 
         # Gesamtwiderstand (In Reihe geschaltet)
-        resistor_ges = r1 + r2
-        print("R1 = ", r1, "Ohm")
-        print("R2 = ", r2, "Ohm")
+        circuit = resistor.series(resistor2)
+        circuit = CircuitCalculation(resistor, resistor2)
+        resistor_ges = circuit.calculate_series_circuit
+        print("R1 = ", resistor3, "Ohm")
+        print("R2 = ", resistor2, "Ohm")
         print("Gesamtwiderstand = ", resistor_ges, "Ohm")
 
         # Bestimmung des Stroms

@@ -1,9 +1,9 @@
 class VoltageSource:
 
     # - Initialisierung der Spannungsquelle
-    def __init__(self, voltage):
-        self.voltage = voltage
+    def __init__(self, volt):
+        self.volt = volt
 
     def get_voltage(self):
-        voltage = self.voltage
-        return voltage
+        volt = self.volt
+        return volt

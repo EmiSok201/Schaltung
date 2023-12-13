@@ -1,5 +1,5 @@
 from Bauelemente.Resistor import Resistor
-from Bauelemente.VoltageDivider import VoltageDivider
+from Schaltung.Rechengesetze.VoltageDivider import VoltageDivider
 from Bauelemente.PowerSource import PowerSource
 from Bauelemente.VoltageSource import VoltageSource
 

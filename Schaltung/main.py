@@ -19,10 +19,10 @@ class Main:
         r2 = resistor2.get_ohm()
         r3 = resistor3.get_ohm()
 
-        print("Widerstände:")
-        print("R1 = ", r1, "Ohm")
-        print("R2 = ", r2, "Ohm")
-        print("R3 = ", r3, "Ohm")
+        print(f"Widerstände:")
+        print(f"R1 = {r1} Ohm")
+        print(f"R2 = {r2} Ohm")
+        print(f"R3 = {r3} Ohm")
 
         # Calculate total resistances using class
         total_series_resistance = SeriesCircuit.calculate_series_circuit(resistor1, resistor2, resistor3)
@@ -38,22 +38,22 @@ class Main:
         # Bestimmung des Stroms
         i1 = i0
         i2 = i0
-        print("Ströme:")
-        print("I0 =", i0, "A")
-        print("I1 =", i1, "A")
-        print("I2 =", i2, "A")
+        print(f"Ströme:")
+        print(f"I0 = {i0} A")
+        print(f"I1 = {i1} A")
+        print(f"I2 = {i2} A")
 
         # Print Ursprungsspannung
         voltage_source = VoltageSource(30)
         u0 = voltage_source.get_voltage()
 
-        print("Eingangsspannung:")
-        print("U0 =", u0, "V")
+        print(f"Eingangsspannung:")
+        print(f"U0 = {u0} V")
 
         # Berechnung der Teilspannungen
         u = VoltageDivider.calculate_u(u0, resistor1, resistor2, resistor3)
-        print("Berechnete Teilspannungen:")
-        print("U = ", u, "V")
+        print(f"Berechnete Teilspannungen:")
+        print(f"U = {u} V")
 
 
 if __name__ == '__main__':

@@ -25,10 +25,10 @@ class Main:
         print(f"R3 = {r3} Ohm")
 
         # Calculate total resistances
-        rseries = resistor1.series2(resistor2)
+        rseries = resistor1.series(resistor2)
         print(f"Gesamtwiderstand in Reihe: {rseries.get_ohm()} Ohm")
 
-        rparallel = rseries.parallel2(resistor3)
+        rparallel = rseries.parallel(resistor3)
         print(f"Gesamtwiderstand in Parallel: {rparallel.get_ohm()} Ohm")
 
 

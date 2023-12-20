@@ -10,9 +10,9 @@ class Main:
     @staticmethod
     def run():
         # Initialize resistors
-        resistor1 = Resistor(20)
-        resistor2 = Resistor(30)
-        resistor3 = Resistor(5)
+        resistor1 = Resistor(1)
+        resistor2 = Resistor(5)
+        resistor3 = Resistor(6)
 
         # Gesamtwiderstand (In Reihe geschaltet)
         r1 = resistor1.get_ohm()
@@ -24,13 +24,20 @@ class Main:
         print(f"R2 = {r2} Ohm")
         print(f"R3 = {r3} Ohm")
 
-        # Calculate total resistances using class
-        total_series_resistance = SeriesCircuit.calculate_series_circuit(resistor1, resistor2, resistor3)
-        total_parallel_resistance = ParallelCircuit.calculate_parallel_circuit(resistor1, resistor2, resistor3)
+        # Calculate total resistances
+        rseries = resistor1.series2(resistor2)
+        print(f"Gesamtwiderstand in Reihe: {rseries.get_ohm()} Ohm")
+
+        rparallel = rseries.parallel2(resistor3)
+        print(f"Gesamtwiderstand in Parallel: {rparallel.get_ohm()} Ohm")
+
+
+        #total_series_resistance = SeriesCircuit.calculate_series_circuit(resistor1, resistor2, resistor3)
+        #total_parallel_resistance = ParallelCircuit.calculate_parallel_circuit(resistor1, resistor2, resistor3)
 
         # Print total resistances
-        print(f"Gesamtwiderstand in Reihe: {total_series_resistance} Ohm")
-        print(f"Gesamtwiderstand in Parallel: {total_parallel_resistance} Ohm")
+        #print(f"Gesamtwiderstand in Reihe: {total_series_resistance} Ohm")
+        #print(f"Gesamtwiderstand in Parallel: {total_parallel_resistance} Ohm")
 
         power_source = PowerSource(30)
         i0 = power_source.get_ampere()

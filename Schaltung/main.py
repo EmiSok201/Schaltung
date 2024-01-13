@@ -1,7 +1,7 @@
 from Bauelemente.resistor import Resistor
 from Bauelemente.VoltageSource import VoltageSource
 from Rechengesetze.electricalParameters import ElectricalParameters
-
+from Schaltung.Draw_Circuit import DrawCircuit
 
 class Main:
     @staticmethod
@@ -83,6 +83,9 @@ class Main:
         print(f"I1 = {i1} A")
         print(f"I2 = {i2} A")
         print(f"I3 = {i3} A")
+
+        circuit = DrawCircuit()
+        circuit.draw()
 
 
 if __name__ == '__main__':

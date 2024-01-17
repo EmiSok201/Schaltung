@@ -1,53 +1,14 @@
 from Bauelemente.resistor import Resistor
 from Bauelemente.VoltageSource import VoltageSource
 from Rechengesetze.electricalParameters import ElectricalParameters
+from Schaltung.Bauelemente.Parallel import Parallel
+from Schaltung.Bauelemente.Series import Series
 from Schaltung.CircuitVisualizer import CircuitVisualizer
-from Schaltung.Draw_Circuit import DrawCircuit
-
 
 
 class Main:
     @staticmethod
     def run():
-        # # Initialize resistors
-        # resistor1 = Resistor(1)
-        # resistor2 = Resistor(5)
-        # resistor3 = Resistor(6)
-        #
-        # # Gesamtwiderstand (In Reihe geschaltet)
-        # r1 = resistor1.get_ohm()
-        # r2 = resistor2.get_ohm()
-        # r3 = resistor3.get_ohm()
-        #
-        # print(f"Widerstände:")
-        # print(f"R1 = {r1} Ohm")
-        # print(f"R2 = {r2} Ohm")
-        # print(f"R3 = {r3} Ohm")
-        #
-        # # Calculate total resistances
-        # rseries = resistor1.series(resistor2)
-        # print(f"Gesamtwiderstand in Reihe: {rseries.get_ohm()} Ohm")
-        #
-        # rparallel = rseries.parallel(resistor3)
-        # print(f"Gesamtwiderstand in Parallel: {rparallel.get_ohm()} Ohm")
-        #
-        # power_source = PowerSource(30)
-        # i0 = power_source.get_ampere()
-        #
-        # # Bestimmung des Stroms
-        # i1 = i0
-        # i2 = i0
-        # print(f"Ströme:")
-        # print(f"I0 = {i0} A")
-        # print(f"I1 = {i1} A")
-        # print(f"I2 = {i2} A")
-        #
-        # # Print Ursprungsspannung
-        # voltage_source = VoltageSource(30)
-        # u0 = voltage_source.get_voltage()
-        #
-        # print(f"Eingangsspannung:")
-        # print(f"U0 = {u0} V")
 
         # Erste Schaltung
         print(f"Erste Schaltung:")
@@ -56,16 +17,18 @@ class Main:
         r2 = Resistor(1000)
         r3 = Resistor(3000)
         r4 = Resistor(500)
-        rparallel = r2.parallel(r3)
-        rges = r1.series(rparallel)
+        rparallel = Parallel(r2, r3)
+        rserie = Series(r3, rparallel)
+        rges = Series(r1, rparallel)
 
 
         print(f"Widerstände:")
-        print(f"R1 = {r1.get_ohm()} Ohm")
-        print(f"R2 = {r2.get_ohm()} Ohm")
-        print(f"R3 = {r3.get_ohm()} Ohm")
-        print(f"R2_R3_Parallel = {rparallel.get_ohm()} Ohm")
-        print(f"Gesamtwiderstand R = {rges.get_ohm()} Ohm")
+        print(f"R1 = {r1}")
+        print(f"R2 = {r2}")
+        print(f"R3 = {r3}")
+        print(f"R2_R3_Parallel = {rparallel}")
+        print(f"Gesamtwiderstand R = {rges}")
+        print(f"Series R = {rserie}")
 
         u = u0.calculate_u(r1, rparallel)
         u1 = u[0]
@@ -88,10 +51,8 @@ class Main:
         print(f"I2 = {i2} A")
         print(f"I3 = {i3} A")
 
-       # circuit = DrawCircuit()
-       # circuit.draw()
-
-        Main.visualize_circuit(u0, [r1, rparallel])
+        Main.visualize_circuit(u0, [r1,r2, rparallel, rparallel])
+        Main.visualize_circuit(u0, [r4, rparallel, rparallel])
 
 
     @staticmethod

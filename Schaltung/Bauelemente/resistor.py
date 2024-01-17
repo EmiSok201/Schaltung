@@ -1,3 +1,4 @@
+
 class Resistor:
     def __init__(self, ohm: float) -> None:
         self._ohm = ohm
@@ -6,12 +7,6 @@ class Resistor:
         """Return ohm value."""
         return self._ohm
 
-    def series(self, r2):
-        """Calculate total resistance in series."""
-        rtotal = self._ohm + r2.get_ohm()
-        return Resistor(rtotal)
 
-    def parallel(self, r2):
-        """Calculate total resistance in parallel."""
-        rtotal = 1/((1/self._ohm)+(1/r2.get_ohm()))
-        return Resistor(rtotal)
+    def __str__(self):
+        return f"{self._ohm} ohm"

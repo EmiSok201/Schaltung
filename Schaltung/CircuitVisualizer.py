@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+from Schaltung.Bauelemente.Parallel import Parallel
+
+
 class CircuitVisualizer:
     def __init__(self):
         self.fig, self.ax = plt.subplots()
@@ -15,14 +18,17 @@ class CircuitVisualizer:
         voltage_position = (0, self.square_size / 2)
         self.add_component('voltage_source', 'U', voltage_position)
 
-        # Add the series resistor along the top of the square
-        position = (self.square_size / 2, self.square_size)
-        self.add_component('resistor', f'R1 ({resistors[0].get_ohm()}Ω)', position)
-
-        # If there are parallel resistors, add them vertically on the right
-        if len(resistors) > 1:
-            parallel_position = ((self.square_size / 2)+1, self.square_size / 2)
-            self.add_component('resistor', f'R2||R3 ({resistors[1].get_ohm()}Ω)', parallel_position, orientation='vertical')
+        # Place resistors in the circuit
+        x_offset = 1
+        for i, resistor in enumerate(resistors):
+            if isinstance(resistor,Parallel):
+                position = (x_offset-0.6, self.square_size / 2)
+                self.add_component('resistor', f'R{i+1} ({resistor.get_ohm()}Ω)', position, orientation='vertical')
+                x_offset += 1
+            else:
+                position = (x_offset, self.square_size)
+                self.add_component('resistor', f'R{i+1} ({resistor.get_ohm()}Ω)', position)
+                x_offset += 1
 
     def draw_resistor(self, position, label, orientation):
         if orientation == 'horizontal':
@@ -71,6 +77,13 @@ class CircuitVisualizer:
                     self.ax.plot([pos[0], pos[0]], [self.square_size, pos[1]], 'k-')
                     # Draw wire from the parallel resistor to the bottom of the square
                     self.ax.plot([pos[0], pos[0]], [pos[1], 0], 'k-')
+
+                    # Draw wire from the top of the square to the parallel resistor
+                    self.ax.plot([pos[0], pos[0]], [self.square_size, pos[1]], 'k-')
+                    # Draw wire from the parallel resistor to the bottom of the square
+                    self.ax.plot([pos[0], pos[0]], [pos[1], 0], 'k-')
+
+
 
     def draw(self):
         # Draw all components

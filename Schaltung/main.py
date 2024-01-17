@@ -1,7 +1,10 @@
 from Bauelemente.resistor import Resistor
 from Bauelemente.VoltageSource import VoltageSource
 from Rechengesetze.electricalParameters import ElectricalParameters
+from Schaltung.CircuitVisualizer import CircuitVisualizer
 from Schaltung.Draw_Circuit import DrawCircuit
+
+
 
 class Main:
     @staticmethod
@@ -52,9 +55,10 @@ class Main:
         r1 = Resistor(250)
         r2 = Resistor(1000)
         r3 = Resistor(3000)
-
+        r4 = Resistor(500)
         rparallel = r2.parallel(r3)
         rges = r1.series(rparallel)
+
 
         print(f"Widerstände:")
         print(f"R1 = {r1.get_ohm()} Ohm")
@@ -84,10 +88,17 @@ class Main:
         print(f"I2 = {i2} A")
         print(f"I3 = {i3} A")
 
-        circuit = DrawCircuit()
-        circuit.draw()
+       # circuit = DrawCircuit()
+       # circuit.draw()
 
+        Main.visualize_circuit(u0, [r1, rparallel])
+
+
+    @staticmethod
+    def visualize_circuit(voltage_source, resistors):
+        visualizer = CircuitVisualizer()
+        visualizer.setup_circuit(voltage_source, resistors)
+        visualizer.draw()
 
 if __name__ == '__main__':
-    main = Main()
-    main.run()
+    Main.run()

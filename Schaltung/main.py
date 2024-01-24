@@ -14,7 +14,7 @@ class Main:
         print(f"Erste Schaltung:")
         u0 = VoltageSource(30)
         r1 = Resistor(250)
-        r2 = Resistor(1000)
+        r2 = Resistor(3000)
         r3 = Resistor(3000)
         r4 = Resistor(500)
         rparallel = Parallel(r2, r3)
@@ -51,7 +51,7 @@ class Main:
         print(f"I2 = {i2} A")
         print(f"I3 = {i3} A")
 
-        Main.visualize_circuit(u0, [r1,r2, rparallel, rparallel])
+        Main.visualize_circuit(u0, [r4, r1,r2, rparallel, rparallel])
         Main.visualize_circuit(u0, [r4, rparallel, rparallel])
 
 

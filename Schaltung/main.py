@@ -51,8 +51,8 @@ class Main:
         print(f"I2 = {i2} A")
         print(f"I3 = {i3} A")
 
-        Main.visualize_circuit(u0, [r1, rserie, rparallel, r2, rparallel])
-       # Main.visualize_circuit(u0, [r4, rparallel, rparallel])
+        Main.visualize_circuit(u0, [r1 ,rparallel, r2, rserie, rparallel])
+        #Main.visualize_circuit(u0, [r4, rparallel, rparallel])
 
 
     @staticmethod

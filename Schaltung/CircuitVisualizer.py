@@ -3,12 +3,11 @@ import matplotlib.patches as patches
 
 from Schaltung.Bauelemente.Parallel import Parallel
 
-
 class CircuitVisualizer:
     def __init__(self):
         self.fig, self.ax = plt.subplots()
         self.components = []  # To hold components and their positions
-        self.square_size = 4  # Defines the size of the square circuit
+        self.square_size = 5  # Defines the size of the square circuit
 
     def add_component(self, component_type, label, position, orientation='horizontal'):
         self.components.append((component_type, label, position, orientation))
@@ -25,24 +24,26 @@ class CircuitVisualizer:
         for i, resistor in enumerate(resistors):
             x_position = (i + 1) * spacing
             if isinstance(resistor, Parallel):
-                # Place parallel resistors vertically on the right
-                position = (x_position, self.square_size / 2)
-                orientation = 'vertical'
+                # For parallel resistors, draw two resistors next to each other vertically
+                position1 = (x_position - 0.2, self.square_size / 2)
+                position2 = (x_position + 0.25, self.square_size / 2)
+                self.add_component('resistor', f'||R{i+1}({resistor.get_ohm()}Ω)', position1, 'vertical')
+                self.add_component('resistor', f'   R{i+1}||', position2, 'vertical')
             else:
                 # Place other resistors horizontally along the top
                 position = (x_position, self.square_size)
-                orientation = 'horizontal'
-            self.add_component('resistor', f'R{i+1} ({resistor.get_ohm()}Ω)', position, orientation)
+                self.add_component('resistor', f'R{i+1} ({resistor.get_ohm()}Ω)', position, 'horizontal')
 
     def draw_resistor(self, position, label, orientation):
         if orientation == 'horizontal':
             self.ax.add_patch(patches.Rectangle((position[0] - 0.2, position[1] - 0.1), 0.4, 0.2, fill=None, edgecolor='black'))
         else:
             self.ax.add_patch(patches.Rectangle((position[0] - 0.1, position[1] - 0.2), 0.2, 0.4, fill=None, edgecolor='black'))
-        self.ax.text(position[0], position[1], label, ha='center', va='center')
+        # Decrease label size by 1/4
+        self.ax.text(position[0], position[1]+0.28, label, ha='center', va='center', fontsize=7)
 
     def draw_voltage_source(self, position, label):
-        self.ax.add_patch(patches.Circle(position, 0.3, fill=None, edgecolor='black'))
+        self.ax.add_patch(patches.Circle(position, 0.29, fill=None, edgecolor='black'))
         self.ax.text(position[0], position[1], label, ha='center', va='center')
 
     def draw_wires(self):
@@ -61,26 +62,23 @@ class CircuitVisualizer:
         if len(self.components) > 1:
             v_source = self.components[0]
             first_resistor = self.components[0]
-
-            # Draw wire from voltage source to the first series resistor
             self.ax.plot([v_source[2][0], first_resistor[2][0]], [v_source[2][1], first_resistor[2][1]], 'k-')
 
-        # Connect all series resistors
+        # Connect all series resistors, skipping wire after parallel resistors
         for i in range(1, len(self.components)):
             component = self.components[i]
-            if component[0] == 'resistor' and component[3] == 'horizontal':
-                if i > 1:  # If it's not the first resistor, connect it to the previous one
-                    prev_component = self.components[i - 1]
+            prev_component = self.components[i - 1]
+            if component[1] == 'resistor' and component[3] == 'horizontal':
+                if not isinstance(prev_component[1], Parallel) and not (
+                        i < len(self.components) - 1 and isinstance(self.components[i + 1][1], Parallel)):
                     self.ax.plot([prev_component[2][0], component[2][0]], [prev_component[2][1], component[2][1]], 'k-')
 
         # Connect parallel resistors
         for i in range(1, len(self.components)):
             component = self.components[i]
             if component[0] == 'resistor' and component[3] == 'vertical':
-                # Connect to the top and bottom of the square
-                self.ax.plot([component[2][0], component[2][0]], [self.square_size, component[2][1]], 'k-')  # Top wire
-                self.ax.plot([component[2][0], component[2][0]], [0, component[2][1]], 'k-')  # Bottom wire
-
+                self.ax.plot([component[2][0], component[2][0]], [self.square_size, component[2][1]], 'k-')
+                self.ax.plot([component[2][0], component[2][0]], [0, component[2][1]], 'k-')
 
     def draw(self):
         # Draw all components

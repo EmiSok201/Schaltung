@@ -7,6 +7,5 @@ class Resistor:
         """Return ohm value."""
         return self._ohm
 
-
     def __str__(self):
         return f"{self._ohm} ohm"

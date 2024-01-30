@@ -4,6 +4,13 @@ from Rechengesetze.electricalParameters import ElectricalParameters
 from Schaltung.Bauelemente.Parallel import Parallel
 from Schaltung.Bauelemente.Series import Series
 from Schaltung.CircuitVisualizer import CircuitVisualizer
+from Schaltung.Unittest.TestSeries import TestSeries
+from Schaltung.Unittest.TestParallel import TestParallel
+from Schaltung.Unittest.TestResistor import TestResistor
+from Schaltung.Unittest.TestPowerSource import TestPowerSource
+from Schaltung.Unittest.TestVoltageSource import TestVoltageSource
+from Schaltung.Unittest.TestElectricalParameters import TestElectricalParameters
+import unittest
 
 
 class Main:
@@ -105,4 +112,6 @@ class Main:
 
 
 if __name__ == '__main__':
-    Main.run()
+    main = Main()
+    main.run()
+    unittest.main()

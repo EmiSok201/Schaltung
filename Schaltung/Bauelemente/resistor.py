@@ -1,6 +1,8 @@
 
 class Resistor:
     def __init__(self, ohm: float) -> None:
+        if ohm < 0:
+            raise ValueError("Der Widerstand darf nicht negativ sein.")
         self._ohm = ohm
 
     def get_ohm(self) -> float:

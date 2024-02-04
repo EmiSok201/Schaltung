@@ -11,7 +11,8 @@ from Schaltung.Unittest.TestPowerSource import TestPowerSource
 from Schaltung.Unittest.TestVoltageSource import TestVoltageSource
 from Schaltung.Unittest.TestElectricalParameters import TestElectricalParameters
 import unittest
-
+from InputGui import ResistorGUI
+import tkinter as tk
 
 class Main:
     @staticmethod
@@ -57,7 +58,7 @@ class Main:
 
         # Zweite Schaltung
         print(f"Zweite Schaltung:")
-        u0 = VoltageSource(50)
+        u1 = VoltageSource(50)
         r1 = Resistor(350)
         r2 = Resistor(2000)
         r3 = Resistor(1000)
@@ -100,9 +101,9 @@ class Main:
         print(f"I4 = {i4} A")
 
         # Plot Erste Schaltung
-        Main.visualize_circuit(u0, [r1, rparallel])
+        Main.visualize_circuit(u0,[r1, rparallel])
         # Plot Zweite Schaltung
-        Main.visualize_circuit(u0, [r1, rparallel, rserie])
+        Main.visualize_circuit(u1, [r1, rparallel, rserie])
 
     @staticmethod
     def visualize_circuit(voltage_source, resistors):

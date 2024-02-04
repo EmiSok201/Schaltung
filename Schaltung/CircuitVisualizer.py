@@ -13,9 +13,9 @@ class CircuitVisualizer:
         self.components.append((component_type, label, position, orientation))
 
     def setup_circuit(self, voltage_source, resistors):
-        # Add the voltage source on the left middle of the square
+        # Add the voltage source on the left middle of the square with voltage value
         voltage_position = (0, self.square_size / 2)
-        self.add_component('voltage_source', 'U', voltage_position)
+        self.add_component('voltage_source', f'U = {voltage_source.get_voltage()}V', voltage_position)
 
         # Calculate the spacing for resistors
         spacing = self.square_size / (len(resistors) + 1)
@@ -27,24 +27,25 @@ class CircuitVisualizer:
                 # For parallel resistors, draw two resistors next to each other vertically
                 position1 = (x_position - 0.2, self.square_size / 2)
                 position2 = (x_position + 0.25, self.square_size / 2)
-                self.add_component('resistor', f'||R{i+1}({resistor.get_ohm()}Ω)', position1, 'vertical')
-                self.add_component('resistor', f'   R{i+1}||', position2, 'vertical')
+                self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω)', position1, 'vertical')
+                self.add_component('resistor', f'   R{i + 1}||', position2, 'vertical')
             else:
                 # Place other resistors horizontally along the top
                 position = (x_position, self.square_size)
-                self.add_component('resistor', f'R{i+1} ({resistor.get_ohm()}Ω)', position, 'horizontal')
+                self.add_component('resistor', f'R{i + 1} ({resistor.get_ohm()}Ω)', position, 'horizontal')
 
     def draw_resistor(self, position, label, orientation):
         if orientation == 'horizontal':
             self.ax.add_patch(patches.Rectangle((position[0] - 0.2, position[1] - 0.1), 0.4, 0.2, fill=None, edgecolor='black'))
         else:
             self.ax.add_patch(patches.Rectangle((position[0] - 0.1, position[1] - 0.2), 0.2, 0.4, fill=None, edgecolor='black'))
-        # Decrease label size by 1/4
         self.ax.text(position[0], position[1]+0.28, label, ha='center', va='center', fontsize=7)
 
     def draw_voltage_source(self, position, label):
         self.ax.add_patch(patches.Circle(position, 0.29, fill=None, edgecolor='black'))
+        # Display voltage value along with voltage source symbol
         self.ax.text(position[0], position[1], label, ha='center', va='center')
+
 
     def draw_wires(self):
         # Adjust the right boundary based on the last resistor's position

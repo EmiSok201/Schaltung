@@ -1,6 +1,6 @@
 import unittest
 from Schaltung.Bauelemente.VoltageSource import VoltageSource
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 class TestVoltageSource(unittest.TestCase):
 
     def setUp(self):

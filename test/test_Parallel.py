@@ -1,6 +1,6 @@
 import unittest
 from Schaltung.Bauelemente.Parallel import Parallel
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 class TestParallel(unittest.TestCase):
 
     def setUp(self):

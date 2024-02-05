@@ -1,4 +1,4 @@
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 
 
 class Parallel(Resistor):

@@ -2,7 +2,7 @@ import unittest
 from unittest import TestCase
 
 from Schaltung.Rechengesetze.electricalParameters import ElectricalParameters
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 from Schaltung.Bauelemente.PowerSource import PowerSource
 from Schaltung.Bauelemente.VoltageSource import VoltageSource
 class TestElectricalParameters(TestCase):

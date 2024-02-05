@@ -1,6 +1,6 @@
 import unittest
 from Schaltung.Bauelemente.Series import Series
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 class TestSeries(unittest.TestCase):
 
     def setUp(self):

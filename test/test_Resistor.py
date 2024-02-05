@@ -1,5 +1,5 @@
 import unittest
-from Schaltung.Bauelemente.resistor import Resistor
+from Schaltung.Bauelemente.Resistor import Resistor
 
 class TestResistor(unittest.TestCase):
     def setUp(self):

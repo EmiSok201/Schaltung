@@ -1,9 +1,10 @@
-from Bauelemente.resistor import Resistor
+from Bauelemente.Resistor import Resistor
 from Bauelemente.VoltageSource import VoltageSource
 from Rechengesetze.electricalParameters import ElectricalParameters
 from Schaltung.Bauelemente.Parallel import Parallel
 from Schaltung.Bauelemente.Series import Series
 from Schaltung.CircuitVisualizer import CircuitVisualizer
+from Schaltung.Print import Print
 from Schaltung.Rechengesetze import electricalParameters
 
 
@@ -32,10 +33,10 @@ class Main:
         u_1, u_2 = u_res[0], u_res[1]
         u_3 = u_2
 
-        print.print_voltages("Erste Schaltung", U0=u_0, U1=u_1, U2=u_2, U3=u_3)
+        Print.print_voltages("Erste Schaltung", U0=u_0, U1=u_1, U2=u_2, U3=u_3)
 
         currents_erste_schaltung = ElectricalParameters.calculate_currents([resistor1, resistor2, resistor3], [u_1, u_2, u_3])
-        Main.print_currents("Erste Schaltung", **currents_erste_schaltung)
+        Print.print_currents("Erste Schaltung", **currents_erste_schaltung)
 
         # Second circuit
         r1 = Resistor(200)
@@ -58,7 +59,7 @@ class Main:
         Print.print_voltages("Zweite Schaltung", U0=u0, U1=u1, U2=u2, U3=u3, U4=u4)
 
         currents_zweite_schaltung = ElectricalParameters.calculate_currents([r1, r2, r3, r4], [u1, u2, u3, u4])
-        Main.print_currents("Zweite Schaltung", **currents_zweite_schaltung)
+        Print.print_currents("Zweite Schaltung", **currents_zweite_schaltung)
 
         # Visualization
         Main.visualize_circuit(u_0, [resistor1, r_parallel, r3, r_parallel])

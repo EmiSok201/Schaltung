@@ -46,7 +46,6 @@ class CircuitVisualizer:
         # Display voltage value along with voltage source symbol
         self.ax.text(position[0], position[1], label, ha='center', va='center')
 
-
     def draw_wires(self):
         # Adjust the right boundary based on the last resistor's position
         right_boundary_x = max(comp[2][0] for comp in self.components if comp[0] == 'resistor')

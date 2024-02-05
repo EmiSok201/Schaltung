@@ -13,7 +13,10 @@ class ElectricalParameters:
 
     # - Berechnung des Stroms
     def calculate_ampere(self):
-        ampere = self.voltage / self.ohm
+        if self.ohm == 0:
+            ampere = 0
+        else:
+            ampere = self.voltage / self.ohm
         return ampere
 
     # - Berechnung des Widerstands

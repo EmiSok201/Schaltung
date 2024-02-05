@@ -6,20 +6,13 @@ from Schaltung.Bauelemente.Series import Series
 from Schaltung.CircuitVisualizer import CircuitVisualizer
 from Schaltung.Print import Print
 from Schaltung.Rechengesetze import electricalParameters
-
-
-#import unittest
+# import unittest
 
 class Main:
-    #Index all print methods of the components
-
-
-
-
 
     def run(self):
         # First circuit
-        resistor1 = Resistor(250)
+        resistor1 = Resistor(0)
         resistor2 = Resistor(1000)
         resistor3 = Resistor(3000)
 
@@ -71,7 +64,8 @@ class Main:
         visualizer.setup_circuit(voltage_source, resistors)
         visualizer.draw()
 
+
 if __name__ == '__main__':
     main = Main()
     main.run()
- #   unittest.main()
+    # unittest.main()

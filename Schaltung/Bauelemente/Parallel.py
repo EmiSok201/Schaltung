@@ -8,7 +8,11 @@ class Parallel(Resistor):
         self._r2 = r2
 
     def calcParallel(self, r1, r2):
-        return 1 / ((1 / r1.get_ohm()) + (1 / r2.get_ohm()))
+        if r1 == 0 or r2 == 0:
+            result = 0
+        else:
+            result = 1 / ((1 / r1.get_ohm()) + (1 / r2.get_ohm()))
+        return result
 
     def __str__(self):
         return f"parallel({self._r1},{self._r2}):{super().__str__()}"

@@ -5,14 +5,12 @@
 **
 
 **Beschreibung:**
-
 Das Programm erstellt eine Elektrische Schaltung bestehen aus beliebig vielen Widerständen und einer Spannungsquelle. Des Weiteren werden die Spannungen und Ströme an den einzelnen Widerständen sowie der Gesamtwiderstand berechnet. Die Schaltung wird dabei in einem Plot Fenster visuell dargestellt. 
 
 **Installation:**
-
-
+	Zur Verwendung dieses Codes, kann man sich das Projekt in GitHub als Zip-Datei runterladen. Es handelt sich hierbei um ein Python Projekt und kann somit nur in einer Python Umgebung verwendet werden.
+	
 **Verwendung:**
-
 Zur Erstellung der Schaltung werden zu Beginn die Widerstände und die Spannungsquelle als Objekte erstellt. Hierfür dient die Klasse ***Resistor*** sowie ***VoltageSource***. 
 Diese beiden Klassen erstellen ein Objekt eines Widerstandes bzw. einer Spannungsquelle mit dem gewünschten Ohm Wert bzw. Volt Wert. 
 
@@ -27,4 +25,7 @@ Zur Visualisierung der Schaltung in einem Plot Fenster dient die Klasse
 
 **Beispiel:**
 
+
 **Hinweise:**
+In der Schaltung ist es nicht möglich negative Widerstände zu erstellen. Sobald bei der Erstellung des Objektes eines Widerstandes eine negativer Wert angegeben wird, folgt in der Konsole eine Error. Eine Fehlermeldung weist darauf hin, dass der Widerstand nicht negativ sein darf. 
+Ein Widerstand mit dem Wert null dagegen ist erlaubt und die Berechnung wird normal durchgeführt. 

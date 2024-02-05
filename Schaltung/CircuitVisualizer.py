@@ -26,13 +26,13 @@ class CircuitVisualizer:
                 if i == last_parallel_index:
                     position1 = (x_position - 0.2, self.square_size / 2)
                     position2 = (x_position + 0.25, self.square_size / 2)
-                    self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω)', position1, 'vertical')
-                    self.add_component('resistor', f'   R{i + 1}||', position2, 'vertical')
+                    self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω) R{i + 2}||', position1, 'vertical')
+                    self.add_component('resistor', f'', position2, 'vertical')
                 else:
                     position1 = (x_position, self.square_size+0.02)
                     position2 = (x_position, self.square_size - 0.4)
                     self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω) R{i + 2}||', position1, 'horizontal_to_top')
-                    self.add_component('resistor', f'   R{i + 1}//', position2, 'horizontal_to_top')
+                    self.add_component('resistor', f'  ', position2, 'horizontal_to_top')
             else:
                 position = (x_position, self.square_size)
                 self.add_component('resistor', f'R{i + 1} ({resistor.get_ohm()}Ω)', position, 'horizontal')

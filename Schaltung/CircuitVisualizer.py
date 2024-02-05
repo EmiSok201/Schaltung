@@ -20,15 +20,28 @@ class CircuitVisualizer:
         # Calculate the spacing for resistors
         spacing = self.square_size / (len(resistors) + 1)
 
+        # Place resistors in the circuit, checking for the last parallel resistor
+        last_parallel_index = None
+        for i, resistor in enumerate(resistors):
+            if isinstance(resistor, Parallel):
+                last_parallel_index = i  # Update with the latest parallel resistor found
+
         # Place resistors in the circuit
         for i, resistor in enumerate(resistors):
             x_position = (i + 1) * spacing
             if isinstance(resistor, Parallel):
-                # For parallel resistors, draw two resistors next to each other vertically
-                position1 = (x_position - 0.2, self.square_size / 2)
-                position2 = (x_position + 0.25, self.square_size / 2)
-                self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω)', position1, 'vertical')
-                self.add_component('resistor', f'   R{i + 1}||', position2, 'vertical')
+                if i == last_parallel_index:
+                    # Place parallel resistors vertically in their default position
+                    position1 = (x_position - 0.2, self.square_size / 2)
+                    position2 = (x_position + 0.25, self.square_size / 2)
+                    self.add_component('resistor', f'||R{i + 1}({resistor.get_ohm()}Ω)', position1, 'vertical')
+                    self.add_component('resistor', f'   R{i + 1}||', position2, 'vertical')
+                else:
+                    # For the last parallel resistor, place two resistors on the top boundary horizontally
+                    position1 = (x_position, self.square_size - 0.05)
+                    position2 = (x_position , self.square_size - 0.4)
+                    self.add_component('resistor', f'//R{i + 1}({resistor.get_ohm()}Ω)', position1, 'horizontal')
+                    self.add_component('resistor', f'   R{i + 1}//', position2, 'horizontal')
             else:
                 # Place other resistors horizontally along the top
                 position = (x_position, self.square_size)
@@ -36,28 +49,27 @@ class CircuitVisualizer:
 
     def draw_resistor(self, position, label, orientation):
         if orientation == 'horizontal':
-            self.ax.add_patch(patches.Rectangle((position[0] - 0.2, position[1] - 0.1), 0.4, 0.2, fill=None, edgecolor='black'))
-        else:
-            self.ax.add_patch(patches.Rectangle((position[0] - 0.1, position[1] - 0.2), 0.2, 0.4, fill=None, edgecolor='black'))
-        self.ax.text(position[0], position[1]+0.28, label, ha='center', va='center', fontsize=7)
+            self.ax.add_patch(
+                patches.Rectangle((position[0] - 0.2, position[1] - 0.1), 0.4, 0.2, fill=None, edgecolor='black'))
+        else:  # Handles both vertical and vertical_to_top orientations
+            self.ax.add_patch(
+                patches.Rectangle((position[0] - 0.1, position[1] - 0.2), 0.2, 0.4, fill=None, edgecolor='black'))
+        self.ax.text(position[0], position[1] + 0.28, label, ha='center', va='center', fontsize=7)
 
     def draw_voltage_source(self, position, label):
         self.ax.add_patch(patches.Circle(position, 0.29, fill=None, edgecolor='black'))
-        # Display voltage value along with voltage source symbol
         self.ax.text(position[0], position[1], label, ha='center', va='center')
 
-
     def draw_wires(self):
-        # Adjust the right boundary based on the last resistor's position
         right_boundary_x = max(comp[2][0] for comp in self.components if comp[0] == 'resistor')
-
-        # Draw the square frame of the circuit
-        square_coords = [
-            (0, 0), (0, self.square_size),
-            (right_boundary_x, self.square_size), (right_boundary_x, 0),
-            (0, 0)
-        ]
+        square_coords = [(0, 0), (0, self.square_size), (right_boundary_x, self.square_size), (right_boundary_x, 0),
+                         (0, 0)]
         self.ax.plot(*zip(*square_coords), 'k-')
+
+        for i, (comp_type, label, position, orientation) in enumerate(self.components):
+            if orientation == 'vertical_to_top':
+                # Connect this component directly to the top boundary
+                self.ax.plot([position[0], position[0]], [position[1] + 0.4, self.square_size], 'k-')
 
         # Draw wires from the voltage source to the first resistor
         if len(self.components) > 1:

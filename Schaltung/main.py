@@ -14,10 +14,34 @@ import unittest
 
 class Main:
     @staticmethod
-    def run():
+    def print_resistors(prefix, *resistors):
+        print(f"{prefix} Widerstände:")
+        for idx, resistor in enumerate(resistors, 1):
+            print(f"R{idx} = {resistor}")
 
+    @staticmethod
+    def print_voltages(prefix, **voltages):
+        print(f"{prefix} Spannungen:")
+        for label, voltage in voltages.items():
+            print(f"{label} = {voltage.get_voltage()} V")
+
+    @staticmethod
+    def print_currents(prefix, **currents):
+        print(f"{prefix} Ströme:")
+        for label, current in currents.items():
+            print(f"{label} = {current} A")
+
+    @staticmethod
+    def calculate_currents(resistors, voltages):
+        currents = {}
+        for label, (resistor, voltage) in enumerate(zip(resistors, voltages), start=1):
+            current = ElectricalParameters(resistor.get_ohm(), voltage.get_voltage(), 0).calculate_ampere()
+            currents[f"I{label}"] = current
+        return currents
+
+    @staticmethod
+    def run():
         # Erste Schaltung
-        print(f"Erste Schaltung:")
         resistor1 = Resistor(250)
         resistor2 = Resistor(1000)
         resistor3 = Resistor(3000)
@@ -25,90 +49,50 @@ class Main:
         r_parallel = Parallel(resistor2, resistor3)
         r_serie = Series(resistor1, r_parallel)
 
-        print(f"Widerstände:")
-        print(f"R1 = {resistor1}")
-        print(f"R2 = {resistor2}")
-        print(f"R3 = {resistor3}")
-        print(f"R2_R3_Parallel = {r_parallel}")
-        print(f"Series R = {r_serie}")
+        Main.print_resistors("Erste Schaltung", resistor1, resistor2, resistor3, r_parallel, r_serie)
 
         u_0 = VoltageSource(30)
         u_res = u_0.calculate_u(resistor1, r_parallel)
-        u_1 = u_res[0]
-        u_2 = u_res[1]
+        u_1, u_2 = u_res[0], u_res[1]
         u_3 = u_2
 
-        print(f"Spannungen:")
-        print(f"U0 = {u_0.get_voltage()} V")
-        print(f"U1 = {u_1.get_voltage()} V")
-        print(f"U2 = {u_2.get_voltage()} V")
-        print(f"U3 = {u_3.get_voltage()} V")
+        Main.print_voltages("Erste Schaltung", U0=u_0, U1=u_1, U2=u_2, U3=u_3)
 
-        # Berechnung Strom
-        i_1 = ElectricalParameters(resistor1.get_ohm(), u_1.get_voltage(), 0).calculate_ampere()
-        i_2 = ElectricalParameters(resistor2.get_ohm(), u_2.get_voltage(), 0).calculate_ampere()
-        i_3 = ElectricalParameters(resistor3.get_ohm(), u_3.get_voltage(), 0).calculate_ampere()
-
-        print(f"Ströme:")
-        print(f"I1 = {i_1} A")
-        print(f"I2 = {i_2} A")
-        print(f"I3 = {i_3} A")
+        currents_erste_schaltung = Main.calculate_currents([resistor1, resistor2, resistor3], [u_1, u_2, u_3])
+        Main.print_currents("Erste Schaltung", **currents_erste_schaltung)
 
         # Zweite Schaltung
-        print(f"Zweite Schaltung:")
-        r1 = Resistor(350)
-        r2 = Resistor(2000)
-        r3 = Resistor(1000)
+        r1 = Resistor(200)
+        r2 = Resistor(300)
+        r3 = Resistor(500)
         r4 = Resistor(400)
 
         rserie = Series(r3, r4)
         rparallel = Parallel(r2, rserie)
         rges = Series(r1, rparallel)
 
-        print(f"Widerstände:")
-        print(f"R1 = {r1}")
-        print(f"R2 = {r2}")
-        print(f"R3 = {r3}")
-        print(f"R3_R4_Series = {rserie}")
-        print(f"R2 Parallel R3_R4 = {rparallel}")
-        print(f"R Gesamt = {rges}")
+        Main.print_resistors("Zweite Schaltung", r1, r2, r3, r4, rserie, rparallel, rges)
 
         u0 = VoltageSource(20)
-        u1 = VoltageSource(20)
-        u2 = VoltageSource(10)
-        u3 = VoltageSource(15)
-        u4 = VoltageSource(35)
+        u1 = VoltageSource(18.31)
+        u2 = VoltageSource(11.68)
+        u3 = u4 = u2
 
-        print(f"Spannungen:")
-        print(f"U0 = {u0.get_voltage()} V")
-        print(f"U1 = {u1.get_voltage()} V")
-        print(f"U2 = {u2.get_voltage()} V")
-        print(f"U3 = {u3.get_voltage()} V")
-        print(f"U4 = {u4.get_voltage()} V")
+        # Print voltages
+        Main.print_voltages("Zweite Schaltung", U0=u0, U1=u1, U2=u2, U3=u3, U4=u4)
 
-        # Berechnung Strom
-        i1 = ElectricalParameters(resistor1.get_ohm(), u1.get_voltage(), 0).calculate_ampere()
-        i2 = ElectricalParameters(resistor2.get_ohm(), u2.get_voltage(), 0).calculate_ampere()
-        i3 = ElectricalParameters(resistor3.get_ohm(), u3.get_voltage(), 0).calculate_ampere()
-        i4 = ElectricalParameters(r4.get_ohm(), u4.get_voltage(), 0).calculate_ampere()
+        currents_zweite_schaltung = Main.calculate_currents([r1, r2, r3, r4], [u1, u2, u3, u4])
+        Main.print_currents("Zweite Schaltung", **currents_zweite_schaltung)
 
-        print(f"Ströme:")
-        print(f"I1 = {i1} A")
-        print(f"I2 = {i2} A")
-        print(f"I3 = {i3} A")
-        print(f"I4 = {i4} A")
-
-        # Plot Erste Schaltung
+        # Visualization
         Main.visualize_circuit(u_0, [resistor1, r_parallel])
-        # Plot Zweite Schaltung
-        Main.visualize_circuit(u1, [r1, rparallel, rserie])
+        Main.visualize_circuit(u0, [r1, rparallel, r4])
 
     @staticmethod
     def visualize_circuit(voltage_source, resistors):
         visualizer = CircuitVisualizer()
         visualizer.setup_circuit(voltage_source, resistors)
         visualizer.draw()
-
 
 if __name__ == '__main__':
     main = Main()

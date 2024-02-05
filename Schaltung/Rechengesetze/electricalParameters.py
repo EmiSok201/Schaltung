@@ -20,3 +20,11 @@ class ElectricalParameters:
     def calculate_ohm(self):
         ohm = self.voltage / self.ampere
         return ohm
+
+    @staticmethod  # Calculate the currents I based on the resistances Ohm and voltages
+    def calculate_currents(resistors, voltages):
+        currents = {}
+        for label, (resistor, voltage) in enumerate(zip(resistors, voltages), start=1):
+            current = ElectricalParameters(resistor.get_ohm(), voltage.get_voltage(), 0).calculate_ampere()
+            currents[f"I{label}"] = current
+        return currents

@@ -1,9 +1,11 @@
 import unittest
+from unittest import TestCase
+
 from Schaltung.Rechengesetze.electricalParameters import ElectricalParameters
 from Schaltung.Bauelemente.resistor import Resistor
 from Schaltung.Bauelemente.PowerSource import PowerSource
 from Schaltung.Bauelemente.VoltageSource import VoltageSource
-class TestElectricalParameters(unittest.TestCase):
+class TestElectricalParameters(TestCase):
 
     def setUp(self):
         self.R_obj = Resistor(100)

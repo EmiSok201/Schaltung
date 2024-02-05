@@ -5,14 +5,13 @@ from Schaltung.Bauelemente.Parallel import Parallel
 from Schaltung.Bauelemente.Series import Series
 from Schaltung.CircuitVisualizer import CircuitVisualizer
 from Schaltung.Print import Print
-from Schaltung.Rechengesetze import electricalParameters
-# import unittest
+
 
 class Main:
 
     def run(self):
         # First circuit
-        resistor1 = Resistor(0)
+        resistor1 = Resistor(100)
         resistor2 = Resistor(1000)
         resistor3 = Resistor(3000)
 
@@ -28,7 +27,8 @@ class Main:
 
         Print.print_voltages("Erste Schaltung", U0=u_0, U1=u_1, U2=u_2, U3=u_3)
 
-        currents_erste_schaltung = ElectricalParameters.calculate_currents([resistor1, resistor2, resistor3], [u_1, u_2, u_3])
+        currents_erste_schaltung = ElectricalParameters.calculate_currents([resistor1, resistor2, resistor3],
+                                                                           [u_1, u_2, u_3])
         Print.print_currents("Erste Schaltung", **currents_erste_schaltung)
 
         # Visualization
@@ -44,4 +44,3 @@ class Main:
 if __name__ == '__main__':
     main = Main()
     main.run()
-    # unittest.main()

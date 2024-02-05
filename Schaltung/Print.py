@@ -1,7 +1,7 @@
 class Print:
     def __init__(self) -> None:
         pass
-
+    # print the voltages and currents
     @staticmethod
     def print_voltages(prefix, **voltages):
         print(f"{prefix} Spannungen:")

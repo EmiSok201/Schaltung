@@ -8,7 +8,7 @@
 Das Programm erstellt eine Elektrische Schaltung bestehen aus beliebig vielen Widerständen und einer Spannungsquelle. Des Weiteren werden die Spannungen und Ströme an den einzelnen Widerständen sowie der Gesamtwiderstand berechnet. Die Schaltung wird dabei in einem Plot Fenster visuell dargestellt. 
 
 **Installation:**
-	...
+
 **Verwendung:**
 Zur Erstellung der Schaltung werden zu Beginn die Widerstände und die Spannungsquelle als Objekte erstellt. Hierfür dient die Klasse ***Resistor*** sowie ***VoltageSource***. 
 Diese beiden Klassen erstellen ein Objekt eines Widerstandes bzw. einer Spannungsquelle mit dem gewünschten Ohm Wert bzw. Volt Wert. 

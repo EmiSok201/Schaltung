@@ -128,6 +128,8 @@ if __name__ == '__main__':
     main = Main()
     main.run()
 ```
+#### Beispiel für die Visualisierung einer Schaltung:
+![img.png](img.png)
 
 ## Hinweise:
 

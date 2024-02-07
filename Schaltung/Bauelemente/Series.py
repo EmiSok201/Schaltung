@@ -2,7 +2,7 @@ from Schaltung.Bauelemente.Resistor import Resistor
 
 
 class Series(Resistor):
-    def __init__(self, r1:Resistor, r2:Resistor) -> None:
+    def __init__(self, r1: Resistor, r2: Resistor) -> None:
         super().__init__(self.calcSeries(r1, r2))
         self._r1 = r1
         self._r2 = r2

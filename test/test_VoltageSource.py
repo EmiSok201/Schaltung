@@ -14,7 +14,7 @@ class TestVoltageSource(unittest.TestCase):
         # assert
         self.assertEqual(40, result)
 
-    def test_calcSeries(self):
+    def test_calculate_u(self):
         # act
         result = self.U.calculate_u(self.R1_obj, self.R2_obj)
         # assert

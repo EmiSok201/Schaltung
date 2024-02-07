@@ -2,7 +2,7 @@ from Schaltung.Bauelemente.Resistor import Resistor
 
 
 class Parallel(Resistor):
-    def __init__(self, r1, r2) -> None:
+    def __init__(self, r1: Resistor, r2: Resistor) -> None:
         super().__init__(self.calcParallel(r1, r2))
         self._r1 = r1
         self._r2 = r2
